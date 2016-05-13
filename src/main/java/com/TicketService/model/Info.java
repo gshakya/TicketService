@@ -13,10 +13,35 @@ public class Info {
 	@GeneratedValue
 	@Id
 	private long id;
-
+	private double price;	
 	private String hall;
-
 	@Temporal(TemporalType.DATE)
 	private Date screeningDate;
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public String getHall() {
+		return hall;
+	}
+
+	public void setHall(String hall) {
+		this.hall = hall;
+	}
+
+	public Date getScreeningDate() {
+		return screeningDate;
+	}
+
+	public void setScreeningDate(Date screeningDate) {
+		this.screeningDate = screeningDate;
+	}
+	
+	
 
 }

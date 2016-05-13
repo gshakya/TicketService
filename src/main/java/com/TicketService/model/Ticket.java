@@ -1,5 +1,6 @@
 package com.TicketService.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,11 +18,33 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name="movie_id")
 	private Movie movie;
-	@OneToOne
+	@ManyToOne
 	private Info details;
 	@ManyToOne
 	@JoinColumn(name="customer_id")
-	private Customer bookedBy;
+	private Customer bookedBy;	
+	@ManyToOne
+	@JoinColumn(name="staff_id")
+	private Staff createdBy; 
+	
+	public Movie getMovie() {
+		return movie;
+	}
+	public void setMovie(Movie movie) {
+		this.movie = movie;
+	}
+	public Info getDetails() {
+		return details;
+	}
+	public void setDetails(Info details) {
+		this.details = details;
+	}
+	public Customer getBookedBy() {
+		return bookedBy;
+	}
+	public void setBookedBy(Customer bookedBy) {
+		this.bookedBy = bookedBy;
+	}
 
 	
 }

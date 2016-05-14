@@ -30,6 +30,8 @@ public class Customer{
 	
 	@OneToMany(mappedBy = "bookedBy")	
 	private Set<Ticket> tickets;
-	
+	public long getId(){
+		return this.id;
+	}
 
 }

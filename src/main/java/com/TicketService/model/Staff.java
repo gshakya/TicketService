@@ -19,5 +19,7 @@ public class Staff {
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
-
+	public long getId(){
+		return this.id;
+	}
 }

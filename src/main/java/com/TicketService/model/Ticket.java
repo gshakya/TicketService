@@ -19,8 +19,6 @@ public class Ticket {
 	@JoinColumn(name="movie_id")
 	private Movie movie;
 	@ManyToOne
-	private Info details;
-	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private Customer bookedBy;	
 	@ManyToOne
@@ -32,13 +30,10 @@ public class Ticket {
 	}
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+		if(!movie.getAllocatedTickets().contains(this))
+			movie.addTickets(this);
 	}
-	public Info getDetails() {
-		return details;
-	}
-	public void setDetails(Info details) {
-		this.details = details;
-	}
+	
 	public Customer getBookedBy() {
 		return bookedBy;
 	}

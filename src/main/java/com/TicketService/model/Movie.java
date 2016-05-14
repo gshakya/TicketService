@@ -7,31 +7,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Movie {
 	@GeneratedValue
 	@Id
-	private long movie_id;	
-	private String movie_name;
+	private long movieId;	
+	private String movieName;
 	private String desciption;	
+	@OneToOne
+	private Info details;
 	@OneToMany(mappedBy = "movie")
 	private Set<Ticket> allocatedTickets = new HashSet<Ticket>();
 
-	public long getMovie_id() {
-		return movie_id;
+	public long getMovieId() {
+		return movieId;
 	}
 
-	public void setMovie_id(long movie_id) {
-		this.movie_id = movie_id;
+	public void setMovieId(long movieId) {
+		this.movieId = movieId;
 	}
 
-	public String getMovie_name() {
-		return movie_name;
+	public String getMovieName() {
+		return movieName;
 	}
 
-	public void setMovie_name(String movie_name) {
-		this.movie_name = movie_name;
+	public void setMovieName(String movie_name) {
+		this.movieName = movie_name;
 	}
 
 	public String getDesciption() {
@@ -48,6 +51,17 @@ public class Movie {
 
 	public void addTickets(Ticket ticket) {
 		allocatedTickets.add(ticket);
+		if(ticket.getMovie()==null){
+			ticket.setMovie(this);
+		}
+	}
+
+	public Info getDetails() {
+		return details;
+	}
+
+	public void setDetails(Info details) {
+		this.details = details;
 	}
 	
 	

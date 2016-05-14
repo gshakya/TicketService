@@ -31,6 +31,11 @@ public class Customer {
 	@OneToMany(mappedBy = "bookedBy")
 	private Set<Ticket> tickets = new HashSet<Ticket>();
 
+		
+	public long getId() {
+		return id;
+	}
+
 	public String getName() {
 		return name;
 	}

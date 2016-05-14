@@ -15,9 +15,12 @@ public class Info {
 	private long id;
 	private double price;	
 	private String hall;
+	private int totalSeats;
 	@Temporal(TemporalType.DATE)
 	private Date screeningDate;
 
+	
+	
 	public double getPrice() {
 		return price;
 	}
@@ -40,6 +43,14 @@ public class Info {
 
 	public void setScreeningDate(Date screeningDate) {
 		this.screeningDate = screeningDate;
+	}
+
+	public int getTotalSeats() {
+		return totalSeats;
+	}
+
+	public void setTotalSeats(int totalSeats) {
+		this.totalSeats = totalSeats;
 	}
 	
 	

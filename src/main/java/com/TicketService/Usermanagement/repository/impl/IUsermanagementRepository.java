@@ -5,8 +5,7 @@ import java.util.Set;
 import com.TicketService.model.Customer;
 
 
-@SuppressWarnings("rawtypes")
-public interface IUsermanagementRepository extends IBaseRepository{
+public interface IUsermanagementRepository extends IBaseRepository<Customer>{
 	
 	public Set<Customer> getAll();
 	
@@ -14,5 +13,4 @@ public interface IUsermanagementRepository extends IBaseRepository{
 	
 	public Set<Customer> searchByEmail(String key);
 	
-	public Customer patchMovie(int id, String title, String description);
 }

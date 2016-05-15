@@ -7,15 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.TicketService.DAO.IMovieDao;
-import com.TicketService.model.Customer;
-import com.TicketService.model.Info;
-import com.TicketService.model.Movie;
-import com.TicketService.model.Ticket;
+import com.TicketService.Model.Customer;
+import com.TicketService.Model.Info;
+import com.TicketService.Model.Movie;
+import com.TicketService.Model.Ticket;
+import com.TicketService.Repository.IMovieRepository;
 
+@Service
+@Transactional
 public class TicketFinder {
 	@Autowired
-	private IMovieDao movieDao;
+	private IMovieRepository movieDao;
 
 	// @Autowired
 	// private ITicketDao ticketDao;
@@ -46,7 +48,7 @@ public class TicketFinder {
 		i.setTotalSeats(totalSeats);
 
 		m.setMovieName(movieName);
-		m.setDesciption(movieDesc);
+		m.setDescription(movieDesc);
 		m.setDetails(i);
 	}
 }

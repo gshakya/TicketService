@@ -1,8 +1,9 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Customer {
 	private String name;
 	private String address;
 	private String email;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="loginName")
 	private LoginDetail userInfo;
 

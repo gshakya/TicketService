@@ -1,4 +1,4 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,9 +21,6 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name="customer_id")
 	private Customer bookedBy;	
-	@ManyToOne
-	@JoinColumn(name="staff_id")
-	private Staff createdBy; 
 	
 	public Movie getMovie() {
 		return movie;

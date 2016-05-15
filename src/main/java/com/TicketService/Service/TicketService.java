@@ -1,6 +1,6 @@
 package com.TicketService.Service;
 
-import com.TicketService.model.Ticket;
+import com.TicketService.Model.Ticket;
 
 public interface TicketService {
 

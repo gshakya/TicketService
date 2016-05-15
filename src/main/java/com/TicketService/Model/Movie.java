@@ -1,4 +1,4 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,7 @@ public class Movie {
 	@Id
 	private long movieId;	
 	private String movieName;
-	private String desciption;	
+	private String description;	
 	@OneToOne
 	private Info details;
 	@OneToMany(mappedBy = "movie")
@@ -37,12 +37,12 @@ public class Movie {
 		this.movieName = movie_name;
 	}
 
-	public String getDesciption() {
-		return desciption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesciption(String desciption) {
-		this.desciption = desciption;
+	public void setDescription(String desciption) {
+		this.description = desciption;
 	}
 
 	public Set<Ticket> getAllocatedTickets() {

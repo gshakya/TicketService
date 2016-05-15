@@ -8,11 +8,11 @@
 </head>
 <body>
 
-<form action ="/movie/findMovie" method = "get">
-	<h1> Find Movie</h1><br>
-	
-	Movie Name <input type= "text" name="movieName"> <input type="submit"  value="Find">
-</form>	
+	<form action="${pageContext.request.contextPath}/movie/findMovie" method="get">
+		<h1>Find Movie</h1>
+		<br> Movie Name <input type="text" name="movieName"> <input
+			type="submit" value="Find">
+	</form>
 
 </body>
 </html>

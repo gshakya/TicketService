@@ -1,4 +1,4 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import java.util.Date;
 

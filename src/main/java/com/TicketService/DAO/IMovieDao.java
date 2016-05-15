@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Component;
 
 import com.TicketService.model.Movie;
 
+@Component
 public interface IMovieDao extends JpaRepository<Movie, Long> {
 	
 	public List<Movie> findMovieByMovieName(String name);
@@ -20,6 +22,6 @@ public interface IMovieDao extends JpaRepository<Movie, Long> {
 	@Query("Select m.details.totalSeats from Movie m where m.movieId = :movieId")
 	public int getCapacity(@Param("movieId") long movieId);
 	
-	@Query("Select m from Movie join t.Info i where  m.movieName like %:movieName% and i.screeningDate between :startDate And :endDate")
+	@Query("Select m from Movie m join m.details d where  m.movieName like %:movieName% and d.screeningDate between :startDate And :endDate")
 	public List<Movie> findMovieByNameAndDate(@Param("movieName")String movieName , @Param("startDate")Date startDate , @Param("endDate")Date endDate);
 }

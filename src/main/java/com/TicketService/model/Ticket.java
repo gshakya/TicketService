@@ -39,6 +39,9 @@ public class Ticket {
 	}
 	public void setBookedBy(Customer bookedBy) {
 		this.bookedBy = bookedBy;
+		if(!bookedBy.getTickets().contains(this)){
+			bookedBy.addTicket(this);
+		}
 	}
 
 	

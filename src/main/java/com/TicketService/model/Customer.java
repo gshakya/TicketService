@@ -59,6 +59,12 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public void addTicket(Ticket t){
+		tickets.add(t);
+		if(t.getBookedBy()== null)
+			t.setBookedBy(this);
+	}
 
 	public LoginDetail getUserInfo() {
 		return userInfo;

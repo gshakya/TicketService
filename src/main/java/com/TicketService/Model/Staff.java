@@ -1,4 +1,4 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

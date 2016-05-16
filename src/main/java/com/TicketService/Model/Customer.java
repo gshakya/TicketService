@@ -1,8 +1,9 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -24,12 +25,17 @@ public class Customer {
 	private String name;
 	private String address;
 	private String email;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="loginName")
 	private LoginDetail userInfo;
 
 	@OneToMany(mappedBy = "bookedBy")
 	private Set<Ticket> tickets = new HashSet<Ticket>();
+
+		
+	public long getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;
@@ -53,6 +59,12 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public void addTicket(Ticket t){
+		tickets.add(t);
+		if(t.getBookedBy()== null)
+			t.setBookedBy(this);
 	}
 
 	public LoginDetail getUserInfo() {

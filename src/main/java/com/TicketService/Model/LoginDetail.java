@@ -1,4 +1,4 @@
-package com.TicketService.model;
+package com.TicketService.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,6 +9,9 @@ public class LoginDetail {
 	private String username;
 	private Role role;
 	
+	public LoginDetail(){
+		
+	}
 	
 	public LoginDetail (String username){
 		this.username=username;

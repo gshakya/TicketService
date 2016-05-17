@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,6 +28,7 @@
 			<td>Total Seat</td>
 			<td>Price</td>
 			<td></td>
+			<td></td>
 		</tr>
 
 		<c:forEach items="${movies}" var="movie">
@@ -39,27 +41,33 @@
 				<td>${movie.details.totalSeats}</td>
 				<td>${movie.details.price}</td>
 				<td>
-					<!-- <form method="post" name="buyTicket"action "${pageContext.request.contextPath}/movie/buyTicket">
- --> <input onclick="buyTicket(${movie.movieId})" type="submit">
-					<!-- </form> -->
-
+					<form method="post" name="buyTicket"
+						action="${pageContext.request.contextPath}/movie/buyTicket">
+						<input type="hidden" value=${movie.movieId } name="movieId" />
+						<input value="Buy Ticket" type="submit">
+					</form>
+				</td>
+				<td>
+				<a href="${pageContext.request.contextPath}/movie/edit/${movie.movieId }">Edit</a>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script> 
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script type="text/javascript">
-function  buyTicket(id){
-	$.ajax({type : "POST",
-		contentType:"application/json; charset=utf-8",
-		url : "${pageContext.request.contextPath}/movie/buyTicket?movieId="+id,
-		success : function(response) {
-			console.log("MovieId Sent "+id);
+		function buyTicket(id) {
+			$
+					.ajax({
+						type : "POST",
+						contentType : "application/json; charset=utf-8",
+						url : "${pageContext.request.contextPath}/movie/buyTicket?movieId="
+								+ id,
+						success : function(response) {
+							console.log("MovieId Sent " + id);
+						}
+					});
 		}
-			}); 
- }
-
-
-</script>
+	</script>
 </body>
 </html>

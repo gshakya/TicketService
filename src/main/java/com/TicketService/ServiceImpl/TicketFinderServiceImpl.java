@@ -37,6 +37,10 @@ public class TicketFinderServiceImpl {
 		return movieRepo.findMovieWithNameLike(name);
 	}
 	
+	public Movie findMovieById(long id){
+		return movieRepo.findOne(id);
+	}
+	
 	
 	
 	public List<Movie> findByNameAndDate(String name, Date searchDate){

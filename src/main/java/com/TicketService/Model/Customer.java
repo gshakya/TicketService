@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Customer {
 	@Id
@@ -28,7 +30,7 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="loginName")
 	private LoginDetail userInfo;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "bookedBy")
 	private Set<Ticket> tickets = new HashSet<Ticket>();
 

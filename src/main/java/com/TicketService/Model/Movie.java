@@ -3,6 +3,7 @@ package com.TicketService.Model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,9 +17,9 @@ public class Movie {
 	private long movieId;	
 	private String movieName;
 	private String description;	
-	@OneToOne
+	@OneToOne (cascade=CascadeType.ALL)
 	private Info details;
-	@OneToMany(mappedBy = "movie")
+	@OneToMany(mappedBy = "movie" ,cascade=CascadeType.ALL)
 	private Set<Ticket> allocatedTickets = new HashSet<Ticket>();
 
 	public long getMovieId() {

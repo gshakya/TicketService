@@ -5,15 +5,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.TicketService.Model.Ticket;
-import com.TicketService.Repository.TicketRepository;
-import com.TicketService.Service.TicketService;
+import com.TicketService.Repository.ITicketRepository;
+import com.TicketService.Service.TicketFinderService;
 
 @Service
 @Transactional
-public class TicketServiceImpl implements TicketService {
+public class TicketServiceImpl implements TicketFinderService {
 
 	@Autowired
-	private TicketRepository ticketRepository;
+	private ITicketRepository ticketRepository;
 
 	@Override
 	public void saveTicket(Ticket ticket) {

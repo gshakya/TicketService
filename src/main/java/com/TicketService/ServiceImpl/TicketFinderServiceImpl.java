@@ -1,4 +1,4 @@
-package com.TicketService.Service;
+package com.TicketService.ServiceImpl;
 
 import java.util.Date;
 import java.util.List;
@@ -15,15 +15,15 @@ import com.TicketService.Repository.IMovieRepository;
 
 @Service
 @Transactional
-public class TicketFinder {
+public class TicketFinderServiceImpl {
 	@Autowired
-	private IMovieRepository movieDao;
+	private IMovieRepository movieRepo;
 
 	// @Autowired
 	// private ITicketDao ticketDao;
 
 	public Ticket buyTicket(long movieId, Customer c) {
-		Movie m = movieDao.findOne(movieId);
+		Movie m = movieRepo.findOne(movieId);
 		if (m.getDetails().getTotalSeats() > m.getAllocatedTickets().size()) {
 			Ticket t = new Ticket();
 			t.setBookedBy(c);
@@ -34,7 +34,17 @@ public class TicketFinder {
 	}
 
 	public List<Movie> findByName(String name) {
-		return movieDao.findMovieWithNameLike(name);
+		return movieRepo.findMovieWithNameLike(name);
+	}
+	
+	public Movie findMovieById(long id){
+		return movieRepo.findOne(id);
+	}
+	
+	
+	
+	public List<Movie> findByNameAndDate(String name, Date searchDate){
+		return movieRepo.findMovieByNameAndDate(name, searchDate);
 	}
 
 	public void addMovie(String movieName, String movieDesc, String hallName, int totalSeats, Date screeningDate,
@@ -50,5 +60,6 @@ public class TicketFinder {
 		m.setMovieName(movieName);
 		m.setDescription(movieDesc);
 		m.setDetails(i);
+		movieRepo.save(m);
 	}
 }

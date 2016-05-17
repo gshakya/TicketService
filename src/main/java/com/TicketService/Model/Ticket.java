@@ -1,5 +1,6 @@
 package com.TicketService.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +16,10 @@ public class Ticket {
 	@Id
 	private long ticketId;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="movie_id")
 	private Movie movie;
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id")
 	private Customer bookedBy;	
 	
@@ -40,6 +41,9 @@ public class Ticket {
 			bookedBy.addTicket(this);
 		}
 	}
-
+	public long getTicketId() {
+		return ticketId;
+	}
+	
 	
 }

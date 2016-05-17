@@ -23,6 +23,6 @@ public interface IMovieRepository extends JpaRepository<Movie, Long> {
 	@Query("Select m.details.totalSeats from Movie m where m.movieId = :movieId")
 	public int getCapacity(@Param("movieId") long movieId);
 	
-	@Query("Select m from Movie m join m.details d where  m.movieName like %:movieName% and d.screeningDate between :startDate And :endDate")
-	public List<Movie> findMovieByNameAndDate(@Param("movieName")String movieName , @Param("startDate")Date startDate , @Param("endDate")Date endDate);
+	@Query("Select m from Movie m join m.details d where  m.movieName like %:movieName% and d.screeningDate = :screeningDate")
+	public List<Movie> findMovieByNameAndDate(@Param("movieName")String movieName , @Param("screeningDate")Date screeningDate );
 }

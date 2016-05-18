@@ -34,7 +34,7 @@ public class CustomerManagement {
 			@RequestParam("customerEmail") String customerEmail, Model model) {
 		List<Customer> customers = new ArrayList<Customer>();
 		if (customerName.isEmpty() && customerEmail.isEmpty()) {
-			customers = customerManagementService.findCustomerByEmail(customerEmail);
+			model.addAttribute("errorMessage", "Please input criterian to find!");
 		} else if (customerName.isEmpty()) {
 			customers = customerManagementService.findCustomerByEmail(customerEmail);
 		} else if (customerEmail.isEmpty()) {

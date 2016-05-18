@@ -4,18 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Customer {
@@ -25,14 +21,13 @@ public class Customer {
 	private String name;
 	private String address;
 	private String email;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="loginName")
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "loginName")
 	private LoginDetail userInfo;
-
+	@JsonIgnore
 	@OneToMany(mappedBy = "bookedBy")
 	private Set<Ticket> tickets = new HashSet<Ticket>();
 
-		
 	public long getId() {
 		return id;
 	}
@@ -60,10 +55,10 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public void addTicket(Ticket t){
+
+	public void addTicket(Ticket t) {
 		tickets.add(t);
-		if(t.getBookedBy()== null)
+		if (t.getBookedBy() == null)
 			t.setBookedBy(this);
 	}
 

@@ -2,12 +2,14 @@ package com.TicketService.ServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.TicketService.Model.Movie;
 import com.TicketService.Repository.IMovieRepository;
 import com.TicketService.Service.MovieUtilityService;
 
 @Service
+@Transactional
 public class MovieUtilityServiceImpl implements MovieUtilityService {
 	@Autowired
 	private IMovieRepository movieRepo;

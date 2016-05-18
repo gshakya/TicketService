@@ -5,10 +5,13 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Movie {
@@ -19,7 +22,8 @@ public class Movie {
 	private String description;	
 	@OneToOne (cascade=CascadeType.ALL)
 	private Info details;
-	@OneToMany(mappedBy = "movie" ,cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "movie" ,cascade=CascadeType.ALL,fetch = FetchType.EAGER)
 	private Set<Ticket> allocatedTickets = new HashSet<Ticket>();
 
 	public long getMovieId() {
@@ -45,7 +49,7 @@ public class Movie {
 	public void setDescription(String desciption) {
 		this.description = desciption;
 	}
-
+	@JsonIgnore
 	public Set<Ticket> getAllocatedTickets() {
 		return allocatedTickets;
 	}

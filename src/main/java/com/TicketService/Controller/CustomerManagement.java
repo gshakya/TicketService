@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.TicketService.Model.Customer;
 import com.TicketService.Model.Role;
 import com.TicketService.Service.CustomerManagementService;
+import com.TicketService.Service.IEmailSenderService;
 
 @Controller
 public class CustomerManagement {
 	@Autowired
 	CustomerManagementService customerManagementService;
+	
+	@Autowired
+	private IEmailSenderService emailSenderService;
 
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String CustomerHome() {
@@ -50,7 +54,7 @@ public class CustomerManagement {
 	public String showAddCustomer(Model model) {
 		model.addAttribute("customer", new Customer());
 		model.addAttribute("page", "addCustomer");
-
+		model.addAttribute("usernameDisabled", "");
 		return "NewCustomer";
 	}
 
@@ -64,6 +68,7 @@ public class CustomerManagement {
 	public String viewEditCustomer(@PathVariable Long id, Model model) {
 		model.addAttribute("customer", customerManagementService.findOne(id));
 		model.addAttribute("page", "updateCustomer");
+		model.addAttribute("usernameDisabled", "true");
 		model.addAttribute("RegisteredViewer", Role.ROLE_REGISTERVIEWER);
 		return "NewCustomer";
 	}
@@ -89,15 +94,19 @@ public class CustomerManagement {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegister(Model model) {
 		model.addAttribute("customer", new Customer());
-		model.addAttribute("RegisteredViewer",Role.ROLE_REGISTERVIEWER);
+		model.addAttribute("RegisteredViewer", Role.ROLE_REGISTERVIEWER);
 		return "register";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String addRegister(@ModelAttribute Customer customer, BindingResult errors, HttpServletRequest request, 
+	public String addRegister(@ModelAttribute Customer customer, BindingResult errors, HttpServletRequest request,
 			Model model) {
 		customerManagementService.add(customer);
-		if(errors.hasErrors()){
+		String toAddr = "gr.skya@gmail.com";
+		String subject = "Customer Added";
+		String body = "Customer Name:"+customer.getName()+"\\nCustomer Email:"+customer.getEmail();
+		emailSenderService.sendEmail(toAddr, subject, body);
+		if (errors.hasErrors()) {
 			System.out.println("error:" + errors.toString());
 		}
 		model.addAttribute("customerForm", customer);

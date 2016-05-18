@@ -1,10 +1,11 @@
 package com.TicketService.Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Staff {
@@ -14,9 +15,18 @@ public class Staff {
 	private String name;
 	private String address;
 	private String email;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "loginName")
+	private LoginDetail userInfo;
+	
 	public String getName() {
 		return name;
 	}
+	
+	public long getId(){
+		return id;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -33,6 +43,12 @@ public class Staff {
 		this.email = email;
 	}
 
-	
+	public LoginDetail getUserInfo() {
+		return userInfo;
+	}
 
+	public void setUserInfo(LoginDetail userInfo) {
+		this.userInfo = userInfo;
+	}
+	
 }

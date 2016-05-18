@@ -12,16 +12,15 @@ import com.TicketService.Model.Info;
 import com.TicketService.Model.Movie;
 import com.TicketService.Model.Ticket;
 import com.TicketService.Repository.IMovieRepository;
+import com.TicketService.Service.TicketFinderService;
 
-@Service
 @Transactional
-public class TicketFinderServiceImpl {
+@Service
+public class TicketFinderServiceImpl implements TicketFinderService {
 	@Autowired
 	private IMovieRepository movieRepo;
 
-	// @Autowired
-	// private ITicketDao ticketDao;
-
+	@Override
 	public Ticket buyTicket(long movieId, Customer c) {
 		Movie m = movieRepo.findOne(movieId);
 		if (m.getDetails().getTotalSeats() > m.getAllocatedTickets().size()) {
@@ -33,20 +32,22 @@ public class TicketFinderServiceImpl {
 		return null;
 	}
 
+	@Override
 	public List<Movie> findByName(String name) {
 		return movieRepo.findMovieWithNameLike(name);
 	}
-	
-	public Movie findMovieById(long id){
+
+	@Override
+	public Movie findMovieById(long id) {
 		return movieRepo.findOne(id);
 	}
-	
-	
-	
-	public List<Movie> findByNameAndDate(String name, Date searchDate){
+
+	@Override
+	public List<Movie> findByNameAndDate(String name, Date searchDate) {
 		return movieRepo.findMovieByNameAndDate(name, searchDate);
 	}
-
+	
+	@Override
 	public void addMovie(String movieName, String movieDesc, String hallName, int totalSeats, Date screeningDate,
 			double price) {
 		Movie m = new Movie();
@@ -62,4 +63,6 @@ public class TicketFinderServiceImpl {
 		m.setDetails(i);
 		movieRepo.save(m);
 	}
+
+
 }

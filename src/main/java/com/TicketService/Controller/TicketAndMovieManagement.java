@@ -5,43 +5,42 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.portlet.ModelAndView;
 
 import com.TicketService.Model.Customer;
 import com.TicketService.Model.Movie;
 import com.TicketService.Model.Ticket;
-import com.TicketService.ServiceImpl.MovieUtilityServiceImpl;
-import com.TicketService.ServiceImpl.TicketFinderServiceImpl;
+import com.TicketService.Service.MovieUtilityService;
+import com.TicketService.Service.TicketFinderService;
 
 @Controller
 // @RequestMapping("/movie")
 public class TicketAndMovieManagement {
 
 	@Autowired
-	private TicketFinderServiceImpl ticketFinder;
+	private TicketFinderService ticketFinder;
 
 	@Autowired
-	private MovieUtilityServiceImpl movieUtil;
+	private MovieUtilityService movieUtil;
+	
+	public void setMovieUtil(MovieUtilityService movieUtil) {
+		this.movieUtil = movieUtil;
+	}
+	
+	public void setTicketFinder(TicketFinderService ticketFinder) {
+		this.ticketFinder = ticketFinder;
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "home";
-	}
 
 	@RequestMapping(value = "/movie", method = RequestMethod.GET)
 	public String movieHome() {
@@ -87,8 +86,6 @@ public class TicketAndMovieManagement {
 	public String editMovie_post(@ModelAttribute Movie movie) throws Exception {
 		System.out.println("--- Edit Movie entered");
 		movieUtil.update(movie);
-		// String message = "Organization edited successfully.";
-		// String messagetype = "success";
 		return "movieList";
 	}
 
@@ -98,6 +95,5 @@ public class TicketAndMovieManagement {
 		model.addAttribute("movie", new Movie());
 		return "editMovie";
 	}
-
 
 }

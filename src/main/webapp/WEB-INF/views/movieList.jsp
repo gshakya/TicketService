@@ -12,10 +12,16 @@
 </head>
 <body>
 
-	<sec:authorize access="! hasAnyRole('MOVIEMANAGER','REGISTERVIEWER')">
+	<sec:authorize
+		access="! hasAnyRole('ROLE_MOVIEMANAGER','ROLE_REGISTERVIEWER')">
 		<a href="${pageContext.request.contextPath}/login"> Login </a>
 	</sec:authorize>
-	<sec:authorize access="hasAnyRole('MOVIEMANAGER','REGISTERVIEWER')">
+	<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
+		<a href="${pageContext.request.contextPath}/admin"> Admin
+			Dashboard </a>
+	</sec:authorize>
+	<sec:authorize
+		access="hasAnyRole('ROLE_MOVIEMANAGER','ROLE_REGISTERVIEWER')">
 		<c:url var="logoutUrl" value="/logout" />
 		<form action="${logoutUrl}" method="post">
 			<input class="btn btn-primary" type="submit" value="Logout" /> <input
@@ -39,6 +45,11 @@
 			class="form-control margin-bottom-20" name="searchDate"
 			placeholder="Date" /> <input type="submit" value="Find"> <br>
 	</form>
+
+	<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
+		<a href="${pageContext.request.contextPath}/movie/new">Add Movie</a>
+
+	</sec:authorize>
 	<table cellpadding="6px" bordercolor="black">
 		<tr>
 			<td>Movie Name</td>
@@ -47,6 +58,7 @@
 			<td>Screening Date</td>
 			<td>Total Seat</td>
 			<td>Price</td>
+			<td></td>
 			<td></td>
 			<td></td>
 		</tr>
@@ -67,13 +79,19 @@
 							value="Buy Ticket" type="submit">
 					</form>
 				</td>
-				<td><a
-					href="${pageContext.request.contextPath}/movie/edit/${movie.movieId }">Edit</a>
-				</td>
+				<sec:authorize
+					access="hasAnyRole('ROLE_MOVIEMANAGER')">
+					<td><a
+						href="${pageContext.request.contextPath}/movie/edit/${movie.movieId }">Edit</a>
+					</td>
+					<td><a
+						href="${pageContext.request.contextPath}/movie/delete/${movie.movieId }">Delete</a>
+					</td>
+				</sec:authorize>
 			</tr>
 		</c:forEach>
 	</table>
-	<script
+	<!-- <script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script type="text/javascript">
 		function buyTicket(id) {
@@ -88,6 +106,6 @@
 						}
 					});
 		}
-	</script>
+	</script> -->
 </body>
 </html>

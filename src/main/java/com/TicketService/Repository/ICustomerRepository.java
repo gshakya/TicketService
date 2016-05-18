@@ -28,6 +28,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Long>{
 	@Query("Delete from Customer where id = :id")
 	public Long deleteById(@Param("id")Long id);
 	
+	@Query("select c from Customer c  join c.userInfo i where i.username=:username")
+	public Customer findCustomerByUserName(@Param("username") String userName);
+	
+	
 	@Modifying
 	@Query("Update Customer Set name =:name, address =:address, email =:email where id =:id")
 	public void updateById(@Param("id")long id, @Param("name")String name, @Param("address")String address, @Param("email")String email);

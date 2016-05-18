@@ -12,7 +12,7 @@
 	<a href="register">Register</a>
 	<br>
 	<a href="customer">Customer List</a>
-	
+	<br>
 	<a href="movie">Movie List</a>
 	
 	

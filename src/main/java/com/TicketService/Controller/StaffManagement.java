@@ -52,6 +52,7 @@ public class StaffManagement {
 	@RequestMapping(value = "/staff/addStaff", method = RequestMethod.GET)
 	public String showAddStaff(Model model) {
 		model.addAttribute("staff",new Staff());
+		model.addAttribute("RegisteredViewer", Role.ROLE_MOVIEMANAGER);
 		model.addAttribute("page", "addStaff");
 		return "NewStaff";
 	}
@@ -65,7 +66,7 @@ public class StaffManagement {
 	@RequestMapping(value="/staff/updateStaff/{id}", method=RequestMethod.GET)
 	public String viewEditStaff(@PathVariable Long id, Model model){		
 		model.addAttribute("staff", userManagementService.findOne(id));	
-		model.addAttribute("RegisteredViewer", Role.MOVIEMANAGER);
+		model.addAttribute("RegisteredViewer", Role.ROLE_MOVIEMANAGER);
 		model.addAttribute("page", "addStaff");
 		return "NewStaff";
 	}

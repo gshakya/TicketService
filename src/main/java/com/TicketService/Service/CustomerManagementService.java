@@ -12,6 +12,8 @@ public interface CustomerManagementService {
 	public List<Customer> findCustomerByName(String name);
 
 	public List<Customer> findCustomerByEmail(String email);
+	
+	public Customer findCustomerByUserName(String uname);
 
 	public List<Customer> findCustomerByNameAndEmail(String CustomerName, String CustomerEmail);
 

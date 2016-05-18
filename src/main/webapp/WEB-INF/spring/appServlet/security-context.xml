@@ -4,13 +4,18 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 	<http>
+		<intercept-url pattern="/movie/**" access="hasAnyRole('ROLE_MOVIEMANAGER','ROLE_REGISTERVIEWER')" />
+		<intercept-url pattern="/movie/edit/**" access="hasAnyRole('ROLE_MOVIEMANAGER')" />
+		<intercept-url pattern="/movie/new/**" access="hasAnyRole('ROLE_MOVIEMANAGER')" />
+		<intercept-url pattern="/movie/delete/**" access="hasAnyRole('ROLE_MOVIEMANAGER')" />		
+		<intercept-url pattern="/movie/buyTicket*" access="hasAnyRole('ROLE_MOVIEMANAGER','ROLE_REGISTERVIEWER')" />
+		<!-- <intercept-url pattern="/movie/**" access="isAnonymous()" /> -->
+		
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_MOVIEMANAGER')" />
 		<intercept-url pattern="/staff/**" access="hasRole('ROLE_MOVIEMANAGER')" />
 		<intercept-url pattern="/customer/**"
 			access="hasAnyRole('ROLE_REGISTERVIEWER','ROLE_MOVIEMANAGER')" />
-		<intercept-url pattern="/movie/**"
-			access="hasAnyRole('ROLE_REGISTERVIEWER','ROLE_MOVIEMANAGER')" />
-		<intercept-url pattern="/movie/edit/*" access="hasAnyRole('ROLE_MOVIEMANAGER')" />
-		<intercept-url pattern="/movie/new/" access="hasAnyRole('ROLE_MOVIEMANAGER')" />
+		
 		<intercept-url pattern="/customer/findCustomer" access="hasAnyRole('ROLE_MOVIEMANAGER')" />
 
 		<intercept-url pattern="/movie/buyTicket"

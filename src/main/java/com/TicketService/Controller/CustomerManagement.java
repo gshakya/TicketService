@@ -64,7 +64,7 @@ public class CustomerManagement {
 	public String viewEditCustomer(@PathVariable Long id, Model model) {
 		model.addAttribute("customer", customerManagementService.findOne(id));
 		model.addAttribute("page", "updateCustomer");
-		model.addAttribute("RegisteredViewer", Role.REGISTERVIEWER);
+		model.addAttribute("RegisteredViewer", Role.ROLE_REGISTERVIEWER);
 		return "NewCustomer";
 	}
 
@@ -89,7 +89,7 @@ public class CustomerManagement {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegister(Model model) {
 		model.addAttribute("customer", new Customer());
-		model.addAttribute("RegisteredViewer",Role.REGISTERVIEWER);
+		model.addAttribute("RegisteredViewer",Role.ROLE_REGISTERVIEWER);
 		return "register";
 	}
 

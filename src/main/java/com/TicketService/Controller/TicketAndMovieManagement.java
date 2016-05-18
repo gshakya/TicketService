@@ -71,22 +71,21 @@ public class TicketAndMovieManagement {
 	}
 
 	@RequestMapping(value = "/movie/buyTicket", method = RequestMethod.POST)
-	public String buyTicket(@RequestParam("movieId") String movieId, Model model) {
+	public String buyTicket(@RequestParam("movieId") String movieId, Model model,Principal p) {
 		System.out.println("--- Buy Ticket Conformation----" + movieId);
-		
-
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username;
-
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
+		if(p== null){
+			username= "anonymous";
 		}
+		else{
+			username = p.getName();
+		}
+		System.out.println("--- Name---"+username);
 
 		Customer c;
-		c = customerMgmtService.findCustomerByUserName(username);
 		
+		c = customerMgmtService.findCustomerByUserName(username);
+//		System.out.println(c.getName());
 
 		Ticket t = ticketFinder.buyTicket(Long.parseLong(movieId), c);
 		model.addAttribute("ticket", t);

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix = "sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +10,16 @@
 <title>Movie Utility</title>
 </head>
 <body>
-
+	<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
+		<a href="${pageContext.request.contextPath}/admin"> Admin Dashboard </a>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
+		<c:url var="logoutUrl" value="/logout" />
+		<form action="${logoutUrl}" method="post">
+			<input class="btn btn-primary" type="submit" value="Logout" /> <input
+				type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+	</sec:authorize>
 	<h1>Movie Utility</h1>
 	<form:form id='formedit' method="POST" commandName="movie"
 		action="${pageContext.request.contextPath}/movie/edit">

@@ -14,7 +14,14 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Principal principal) {
-		System.out.println("Logged User:----"+principal);
+		System.out.println("Logged User:----" + principal);
+
 		return "movieList";
+	}
+
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(Principal principal) {
+		System.out.println("Logged User:----" + principal);
+		return "adminDashboard";
 	}
 }

@@ -34,7 +34,7 @@ public class CustomerManagement {
 			@RequestParam("customerEmail") String customerEmail, Model model) {
 		List<Customer> customers = new ArrayList<Customer>();
 		if (customerName.isEmpty() && customerEmail.isEmpty()) {
-			model.addAttribute("errorMessage", "Please input criterian to find!");
+			customers = customerManagementService.findCustomerByEmail(customerEmail);
 		} else if (customerName.isEmpty()) {
 			customers = customerManagementService.findCustomerByEmail(customerEmail);
 		} else if (customerEmail.isEmpty()) {
@@ -64,7 +64,7 @@ public class CustomerManagement {
 	public String viewEditCustomer(@PathVariable Long id, Model model) {
 		model.addAttribute("customer", customerManagementService.findOne(id));
 		model.addAttribute("page", "updateCustomer");
-		model.addAttribute("RegisteredViewer", Role.REGISTERVIEWER);
+		model.addAttribute("RegisteredViewer", Role.ROLE_REGISTERVIEWER);
 		return "NewCustomer";
 	}
 
@@ -89,7 +89,7 @@ public class CustomerManagement {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String showRegister(Model model) {
 		model.addAttribute("customer", new Customer());
-		model.addAttribute("RegisteredViewer",Role.REGISTERVIEWER);
+		model.addAttribute("RegisteredViewer",Role.ROLE_REGISTERVIEWER);
 		return "register";
 	}
 

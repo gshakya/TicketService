@@ -1,5 +1,6 @@
 package com.TicketService.Controller;
 
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +9,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.TicketService.Model.Customer;
 import com.TicketService.Model.Movie;
 import com.TicketService.Model.Ticket;
+import com.TicketService.Service.CustomerManagementService;
 import com.TicketService.Service.MovieUtilityService;
 import com.TicketService.Service.TicketFinderService;
 
@@ -30,12 +34,15 @@ public class TicketAndMovieManagement {
 	private TicketFinderService ticketFinder;
 
 	@Autowired
+	private CustomerManagementService customerMgmtService;
+
+	@Autowired
 	private MovieUtilityService movieUtil;
-	
+
 	public void setMovieUtil(MovieUtilityService movieUtil) {
 		this.movieUtil = movieUtil;
 	}
-	
+
 	public void setTicketFinder(TicketFinderService ticketFinder) {
 		this.ticketFinder = ticketFinder;
 	}
@@ -66,13 +73,32 @@ public class TicketAndMovieManagement {
 	@RequestMapping(value = "/movie/buyTicket", method = RequestMethod.POST)
 	public String buyTicket(@RequestParam("movieId") String movieId, Model model) {
 		System.out.println("--- Buy Ticket Conformation----" + movieId);
-		Customer c = new Customer();
+		
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username;
+
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+
+		Customer c;
+		c = customerMgmtService.findCustomerByUserName(username);
+		
+
 		Ticket t = ticketFinder.buyTicket(Long.parseLong(movieId), c);
-		System.out.println("Testing Testing Testing");
 		model.addAttribute("ticket", t);
 
 		System.out.println(t);
 		return "ticketConformation";
+	}
+
+	@RequestMapping(value = "/movie/delete/{id}", method = RequestMethod.GET)
+	public String editDelete_get(@PathVariable Long id, Model model) {
+		movieUtil.delete(id);
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/movie/edit/{id}", method = RequestMethod.GET)

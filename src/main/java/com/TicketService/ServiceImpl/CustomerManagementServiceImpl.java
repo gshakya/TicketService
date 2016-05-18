@@ -54,4 +54,10 @@ public class CustomerManagementServiceImpl implements CustomerManagementService 
 	public void remove(long id) {
 		customerRepository.delete(id);
 	}
+
+	@Override
+	public Customer findCustomerByUserName(String uname) {
+		customerRepository.findCustomerByUserName(uname);
+		return null;
+	}
 }

@@ -10,6 +10,17 @@
 <title>Staff List</title>
 </head>
 <body>
+	<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
+		<c:url var="logoutUrl" value="/logout" />
+		<form action="${logoutUrl}" method="post">
+			<input class="btn btn-primary" type="submit" value="Logout" /> <input
+				type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		</form>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
+		<a href="${pageContext.request.contextPath}/admin"> Admin Dashboard </a>
+	</sec:authorize>
+
 	<form action="${pageContext.request.contextPath}/staff/findStaff" method="get">
 		<h1>Find Staff</h1>
 		<h3>${errorMessage}</h3>

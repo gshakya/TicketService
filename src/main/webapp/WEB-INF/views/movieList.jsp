@@ -72,15 +72,16 @@
 				<td>${movie.details.screeningDate}</td>
 				<td>${movie.details.totalSeats}</td>
 				<td>${movie.details.price}</td>
-				<td>
-					<form method="post" name="buyTicket"
-						action="${pageContext.request.contextPath}/movie/buyTicket">
-						<input type="hidden" value=${movie.movieId } name="movieId" /> <input
-							value="Buy Ticket" type="submit">
-					</form>
-				</td>
-				<sec:authorize
-					access="hasAnyRole('ROLE_MOVIEMANAGER')">
+				<td><sec:authorize access="hasAnyRole('ROLE_REGISTERVIEWER')">
+						<form method="post" name="buyTicket"
+							action="${pageContext.request.contextPath}/movie/buyTicket">
+							<input type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" /> <input type="hidden"
+								value=${movie.movieId } name="movieId" /> <input
+								value="Buy Ticket" type="submit" />
+						</form>
+					</sec:authorize></td>
+				<sec:authorize access="hasAnyRole('ROLE_MOVIEMANAGER')">
 					<td><a
 						href="${pageContext.request.contextPath}/movie/edit/${movie.movieId }">Edit</a>
 					</td>
@@ -91,21 +92,5 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<!-- <script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-	<script type="text/javascript">
-		function buyTicket(id) {
-			$
-					.ajax({
-						type : "POST",
-						contentType : "application/json; charset=utf-8",
-						url : "${pageContext.request.contextPath}/movie/buyTicket?movieId="
-								+ id,
-						success : function(response) {
-							console.log("MovieId Sent " + id);
-						}
-					});
-		}
-	</script> -->
 </body>
 </html>
